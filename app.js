@@ -1,12 +1,17 @@
 const express = require("express");
 const app = express();
+let { people } = require("./2-express-tutorial/content/data");
 
-app.use(express.static("./2-express-tutorial/navbar-app")); // This should be public folder
+app.use(express.urlencoded({ extended: false }));
 
-app.get("*", (req, res) => {
-  res.status(404).send("Resource not found");
+app.get("/api/people", (req, res) => {
+  res.status(200).json({ success: true, data: people });
+});
+
+app.post("/login", (req, res) => {
+  console.log(req.body);
 });
 
 app.listen(5000, () => {
-  console.log("Server listening on port 5000");
+  console.log("Server running on port 5000");
 });
